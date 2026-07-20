@@ -1,5 +1,6 @@
 using RestaurantApi;
 using RestaurantApi.Models;
+using RestaurantApi.Observers.OrderObservers;
 using RestaurantApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,9 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 var restaurant = app.Services.GetRequiredService<Restaurant>();
+restaurant.Attach(new KitchenService());
+restaurant.Attach(new PayementService());
+restaurant.Attach(new WaiterService());
 
 app.MapGet("/", () => "Restaurant API is running. See /swagger for details.");
 

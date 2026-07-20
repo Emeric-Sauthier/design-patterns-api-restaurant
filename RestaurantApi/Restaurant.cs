@@ -1,15 +1,18 @@
 ﻿using RestaurantApi.Factories;
 using RestaurantApi.Models;
+using RestaurantApi.Observers;
 using RestaurantApi.PriceStrategies;
 using RestaurantApi.PriceStrategies.Implementations;
 using RestaurantApi.Repositories;
 
 namespace RestaurantApi
 {
-    public class Restaurant
+    public class Restaurant : ISubject<Order>
     {
         private readonly OrderRepository _orderRepository;
         private readonly MenuItemRepository _menuItemRepository;
+
+        private readonly List<IRestaurantObserver<Order>> _orderObservers = new();
 
         private const decimal HappyHourDiscount = 20m;
         private readonly DateTime HappyHourtStart = new DateTime(1, 1, 1, 15, 0, 0);
@@ -54,6 +57,7 @@ namespace RestaurantApi
             order.TotalPrice = priceStrategy.CalculatePrice(order.TotalPrice);
 
             _orderRepository.Add(order);
+            Notify(order);
             return order;
         }
 
@@ -65,6 +69,7 @@ namespace RestaurantApi
             }
 
             order.NextState();
+            Notify(order);
 
             return order;
         }
@@ -112,6 +117,24 @@ namespace RestaurantApi
         private List<MenuItem> GetMatchingMenuItems(List<string> itemsId)
         {
             return _menuItemRepository.GetAll().Where(item => itemsId.Contains(item.Id)).ToList();
+        }
+
+        public void Attach(IRestaurantObserver<Order> observer)
+        {
+            _orderObservers.Add(observer);
+        }
+
+        public void Detach(IRestaurantObserver<Order> observer)
+        {
+            _orderObservers.Remove(observer);
+        }
+
+        public void Notify(Order data)
+        {
+            foreach (IRestaurantObserver<Order> observer in _orderObservers)
+            {
+                observer.Update(data);
+            }
         }
     }
 }
