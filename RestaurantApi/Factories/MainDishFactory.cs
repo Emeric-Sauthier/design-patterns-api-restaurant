@@ -1,0 +1,28 @@
+﻿using RestaurantApi.Models;
+using RestaurantApi.Models.MenuItems;
+
+namespace RestaurantApi.Factories
+{
+    public class MainDishFactory : MenuItemFactory
+    {
+        private readonly bool _isVegetarian;
+
+        public MainDishFactory(bool isVegetarian)
+        {
+            _isVegetarian = isVegetarian;
+        }
+
+        public override MenuItem CreateMenuItem(string name, decimal price, string category, int preparationTimeMinutes)
+        {
+            return new MainDish
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = name,
+                Price = price,
+                Category = category,
+                PreparationTimeMinutes = preparationTimeMinutes,
+                IsVegetarian = _isVegetarian
+            };
+        }
+    }
+}
