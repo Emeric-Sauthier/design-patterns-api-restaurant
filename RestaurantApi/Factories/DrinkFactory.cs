@@ -12,7 +12,7 @@ namespace RestaurantApi.Factories
             _isAlcoholic = isAlcoholic;
         }
 
-        public override MenuItem CreateMenuItem(string name, decimal price, int preparationTimeMinutes)
+        public override Drink CreateMenuItem(string name, decimal price, int preparationTimeMinutes)
         {
             return new Drink
             {

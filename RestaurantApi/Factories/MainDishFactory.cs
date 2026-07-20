@@ -12,7 +12,7 @@ namespace RestaurantApi.Factories
             _isVegetarian = isVegetarian;
         }
 
-        public override MenuItem CreateMenuItem(string name, decimal price, int preparationTimeMinutes)
+        public override MainDish CreateMenuItem(string name, decimal price, int preparationTimeMinutes)
         {
             return new MainDish
             {
