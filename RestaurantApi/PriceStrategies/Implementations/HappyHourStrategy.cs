@@ -5,12 +5,14 @@
         private readonly decimal _discountPercentage;
         private readonly DateTime _startDateTime;
         private readonly DateTime _endDateTime;
+        private readonly DateTime _orderDateTime;
 
-        public HappyHourStrategy(decimal discountPercentage, DateTime startDateTime, DateTime endDateTime)
+        public HappyHourStrategy(decimal discountPercentage, DateTime startDateTime, DateTime endDateTime, DateTime orderDateTime)
         {
             _discountPercentage = discountPercentage;
             _startDateTime = startDateTime;
             _endDateTime = endDateTime;
+            _orderDateTime = orderDateTime;
         }
 
         public decimal CalculatePrice(decimal basePrice)
@@ -25,8 +27,7 @@
 
         public bool IsApplicable(decimal basePrice)
         {
-            var currentTime = DateTime.Now;
-            return currentTime.TimeOfDay >= _startDateTime.TimeOfDay && currentTime.TimeOfDay <= _endDateTime.TimeOfDay;
+            return _orderDateTime.TimeOfDay >= _startDateTime.TimeOfDay && _orderDateTime.TimeOfDay <= _endDateTime.TimeOfDay;
         }
 
         public string GetStrategyName()

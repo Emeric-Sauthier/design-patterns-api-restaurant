@@ -102,7 +102,7 @@ namespace RestaurantApi
         private IPriceStrategy GetPriceStrategy(Order order)
         {
             IPriceStrategy[] priceStrategies = {
-                new HappyHourStrategy(HappyHourDiscount, HappyHourtStart, HappyHourEnd),
+                new HappyHourStrategy(HappyHourDiscount, HappyHourtStart, HappyHourEnd, order.CreatedAt),
                 new MenuStrategy(MenuPrice, order.Items),
                 new GroupStrategy(GroupDiscountPercentage, GroupMinimumOrderAmount),
                 new StandardStrategy()
