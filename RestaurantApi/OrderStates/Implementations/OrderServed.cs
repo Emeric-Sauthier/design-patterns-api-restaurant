@@ -9,9 +9,9 @@ namespace RestaurantApi.OrderStates.Implementations
             Console.WriteLine($"Order {_order.Id} served successfully.");
         }
 
-        public override string GetStateName()
+        public override OrderStatusEnum GetState()
         {
-            return "Served";
+            return OrderStatusEnum.Served;
         }
 
         public override void NextState()

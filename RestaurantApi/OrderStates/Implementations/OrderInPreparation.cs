@@ -9,9 +9,9 @@ namespace RestaurantApi.OrderStates.Implementations
             Console.WriteLine($"Order {_order.Id} is now in preparation.");
         }
 
-        public override string GetStateName()
+        public override OrderStatusEnum GetState()
         {
-            return "InPreparation";
+            return OrderStatusEnum.InPreparation;
         }
 
         public override void NextState()

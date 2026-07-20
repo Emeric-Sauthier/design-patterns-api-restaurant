@@ -9,9 +9,9 @@ namespace RestaurantApi.OrderStates.Implementations
             Console.WriteLine($"Order {_order.Id} is now ready.");
         }
 
-        public override string GetStateName()
+        public override OrderStatusEnum GetState()
         {
-            return "Ready";
+            return OrderStatusEnum.Ready;
         }
 
         public override void NextState()

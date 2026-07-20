@@ -7,7 +7,7 @@ namespace RestaurantApi.Observers.OrderObservers
     {
         public void Update(Order data)
         {
-            if (data.Status != "Received" && data.Status != "InPreparation")
+            if (data.Status != OrderStatusEnum.Received && data.Status != OrderStatusEnum.InPreparation)
             {
                 return;
             }

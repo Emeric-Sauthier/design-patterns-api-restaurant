@@ -13,6 +13,6 @@ namespace RestaurantApi.OrderStates
 
         public abstract void NextState();
 
-        public abstract string GetStateName();
+        public abstract OrderStatusEnum GetState();
     }
 }

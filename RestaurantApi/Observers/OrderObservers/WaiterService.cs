@@ -6,7 +6,7 @@ namespace RestaurantApi.Observers.OrderObservers
     {
         public void Update(Order data)
         {
-            if (data.Status != "Ready")
+            if (data.Status != OrderStatusEnum.Ready)
             {
                 return;
             }

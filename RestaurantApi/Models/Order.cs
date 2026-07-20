@@ -11,7 +11,8 @@ namespace RestaurantApi.Models
         public int TableNumber { get; set; }
         public List<MenuItem> Items { get; set; } = new();
         public decimal TotalPrice { get; set; }
-        public string Status => _state.GetStateName();
+        public string StatusName => _state.GetState().ToString();
+        internal OrderStatusEnum Status => _state.GetState();
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string PriceStrategy { get; set; } = "Unknown";
 

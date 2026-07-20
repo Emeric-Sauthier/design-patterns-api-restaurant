@@ -9,9 +9,9 @@ namespace RestaurantApi.OrderStates.Implementations
             Console.WriteLine($"Order {_order.Id} has been paid.");
         }
 
-        public override string GetStateName()
+        public override OrderStatusEnum GetState()
         {
-            return "Paid";
+            return OrderStatusEnum.Paid;
         }
 
         public override void NextState()

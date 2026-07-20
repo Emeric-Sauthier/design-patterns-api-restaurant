@@ -6,11 +6,11 @@ namespace RestaurantApi.Observers.OrderObservers
     {
         public void Update(Order data)
         {
-            if (data.Status != "Received" && data.Status != "Paid")
+            if (data.Status!= OrderStatusEnum.Received && data.Status != OrderStatusEnum.Paid)
             {
                 return;
             }
-            Console.WriteLine($"[PayementService] Received notification for order : {data.Id}");
+            Console.WriteLine($"[PaymentService] Received notification for order : {data.Id}");
         }
     }
 }
