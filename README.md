@@ -1,7 +1,6 @@
 # Design Patterns - API Restaurant
 
-Contributeur :
-- Emeric SAUTHIER
+Contributeur : Emeric SAUTHIER
 
 ## 🚀 Démarrage
 ### Prérequis
