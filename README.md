@@ -79,6 +79,7 @@ Contraintes principales :
 
 Pattern retenu :  
 **Observer** afin de notifier les services abonnés, sans que `Order` ne connaisse leur logique, et qu'ils réagissent en fonction.
+![Diagramme de classe - Pattern Observer](ObserverPattern.png)
 
 ### Besoin 5 - Configuration globale du restaurant
 
