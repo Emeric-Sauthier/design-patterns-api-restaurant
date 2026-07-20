@@ -50,6 +50,7 @@ Contraintes principales :
 
 Pattern retenu :  
 **Strategy** afin de ne pas avoir beaucoup de if/else, de ne pas avoir de logique dans `Order`, et de simplifier l'application de la tarification.
+![Diagramme de classe - Pattern Strategy](StrategyPattern.png)
 
 ### Besoin 3 - Workflow de traitement de commandes
 
