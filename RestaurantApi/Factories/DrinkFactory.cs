@@ -12,14 +12,14 @@ namespace RestaurantApi.Factories
             _isAlcoholic = isAlcoholic;
         }
 
-        public override MenuItem CreateMenuItem(string name, decimal price, string category, int preparationTimeMinutes)
+        public override MenuItem CreateMenuItem(string name, decimal price, int preparationTimeMinutes)
         {
             return new Drink
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = name,
                 Price = price,
-                Category = category,
+                Category = "Drink",
                 PreparationTimeMinutes = preparationTimeMinutes,
                 IsAlcoholic = _isAlcoholic
             };

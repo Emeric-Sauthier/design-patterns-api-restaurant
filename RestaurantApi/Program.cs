@@ -1,5 +1,4 @@
 using RestaurantApi;
-using RestaurantApi.Models;
 using RestaurantApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

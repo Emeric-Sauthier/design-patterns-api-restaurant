@@ -12,14 +12,14 @@ namespace RestaurantApi.Factories
             _isVegetarian = isVegetarian;
         }
 
-        public override MenuItem CreateMenuItem(string name, decimal price, string category, int preparationTimeMinutes)
+        public override MenuItem CreateMenuItem(string name, decimal price, int preparationTimeMinutes)
         {
             return new MainDish
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = name,
                 Price = price,
-                Category = category,
+                Category = "Main Dish",
                 PreparationTimeMinutes = preparationTimeMinutes,
                 IsVegetarian = _isVegetarian
             };

@@ -4,14 +4,14 @@ namespace RestaurantApi.Factories
 {
     public class EntranceFactory : MenuItemFactory
     {
-        public override MenuItem CreateMenuItem(string name, decimal price, string category, int preparationTimeMinutes)
+        public override MenuItem CreateMenuItem(string name, decimal price, int preparationTimeMinutes)
         {
             return new MenuItem
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = name,
                 Price = price,
-                Category = category,
+                Category = "Entrance",
                 PreparationTimeMinutes = preparationTimeMinutes
             };  
         }
