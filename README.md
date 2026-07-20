@@ -63,7 +63,8 @@ Contraintes principales :
 - Une commande payée ne peut plus changer d'état
 
 Pattern retenu :  
-**State** afin de transiter entre les états de manière contrôlée et simplifiée
+**State** afin de transiter entre les états de manière contrôlée et simplifiée.
+![Diagramme de classe - Pattern State](StatePattern.png)
 
 ### Besoin 4 - Notifications inter-services
 
