@@ -46,21 +46,12 @@ namespace RestaurantApi
         public Order CreateOrder(OrderDto orderDto)
         {
             List<MenuItem> matchingMenuItems = GetMatchingMenuItems(orderDto.ItemsId);
-            decimal basePrice = matchingMenuItems.Sum(item => item.Price);
 
-            Order order = new Order
-            {
-                TableNumber = orderDto.TableNumber,
-                Items = matchingMenuItems,
-                TotalPrice = basePrice,
-                Status = "Received",
-                CreatedAt = DateTime.Now,
-                PriceStrategy = orderDto.PriceStrategy ?? string.Empty
-            };
+            Order order = new Order(orderDto.TableNumber, matchingMenuItems, orderDto.PriceStrategy ?? string.Empty);
 
             IPriceStrategy priceStrategy = GetPriceStrategy(order);
             order.PriceStrategy = priceStrategy.GetStrategyName();
-            order.TotalPrice = priceStrategy.CalculatePrice(basePrice);
+            order.TotalPrice = priceStrategy.CalculatePrice(order.TotalPrice);
 
             _orderRepository.Add(order);
             return order;
