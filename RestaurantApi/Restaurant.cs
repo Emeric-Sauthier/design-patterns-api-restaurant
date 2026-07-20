@@ -1,5 +1,7 @@
 ﻿using RestaurantApi.Factories;
 using RestaurantApi.Models;
+using RestaurantApi.PriceStrategies;
+using RestaurantApi.PriceStrategies.Implementations;
 using RestaurantApi.Repositories;
 
 namespace RestaurantApi
@@ -8,6 +10,15 @@ namespace RestaurantApi
     {
         private readonly OrderRepository _orderRepository;
         private readonly MenuItemRepository _menuItemRepository;
+
+        private const decimal HappyHourDiscount = 20m;
+        private readonly DateTime HappyHourtStart = new DateTime(1, 1, 1, 15, 0, 0);
+        private readonly DateTime HappyHourEnd = new DateTime(1, 1, 1, 19, 0, 0);
+
+        private const decimal GroupDiscountPercentage = 15m;
+        private const decimal GroupMinimumOrderAmount = 50m;
+
+        private const decimal MenuPrice = 25m;
 
         public Restaurant(OrderRepository orderRepository, MenuItemRepository menuItemRepository)
         {
@@ -30,6 +41,29 @@ namespace RestaurantApi
         public Order? GetOrderById(string id)
         {
             return _orderRepository.GetById(id);
+        }
+
+        public Order CreateOrder(OrderDto orderDto)
+        {
+            List<MenuItem> matchingMenuItems = GetMatchingMenuItems(orderDto.ItemsId);
+            decimal basePrice = matchingMenuItems.Sum(item => item.Price);
+
+            Order order = new Order
+            {
+                TableNumber = orderDto.TableNumber,
+                Items = matchingMenuItems,
+                TotalPrice = basePrice,
+                Status = "Received",
+                CreatedAt = DateTime.Now,
+                PriceStrategy = orderDto.PriceStrategy ?? string.Empty
+            };
+
+            IPriceStrategy priceStrategy = GetPriceStrategy(order);
+            order.PriceStrategy = priceStrategy.GetStrategyName();
+            order.TotalPrice = priceStrategy.CalculatePrice(basePrice);
+
+            _orderRepository.Add(order);
+            return order;
         }
 
         private void InitializeMenu()
@@ -55,6 +89,26 @@ namespace RestaurantApi
             var nonAlcoholicDrinkFactory = new DrinkFactory(false);
             _menuItemRepository.Add(nonAlcoholicDrinkFactory.CreateMenuItem("Soda", 2.99m, 1));
             _menuItemRepository.Add(nonAlcoholicDrinkFactory.CreateMenuItem("Juice", 3.49m, 1));
+        }
+
+        private IPriceStrategy GetPriceStrategy(Order order)
+        {
+            IPriceStrategy[] priceStrategies = {
+                new HappyHourStrategy(HappyHourDiscount, HappyHourtStart, HappyHourEnd),
+                new MenuStrategy(MenuPrice, order.Items),
+                new GroupStrategy(GroupDiscountPercentage, GroupMinimumOrderAmount),
+                new StandardStrategy()
+            };
+
+            IPriceStrategy mostAdvantageousStrategy = priceStrategies.OrderBy(s => s.CalculatePrice(order.TotalPrice)).First(s => s.IsApplicable(order.TotalPrice));
+            IPriceStrategy selectedPriceStrategy = priceStrategies.Where(s => s.GetStrategyName() == order.PriceStrategy && s.IsApplicable(order.TotalPrice)).FirstOrDefault(mostAdvantageousStrategy);
+
+            return selectedPriceStrategy;
+        }
+
+        private List<MenuItem> GetMatchingMenuItems(List<string> itemsId)
+        {
+            return _menuItemRepository.GetAll().Where(item => itemsId.Contains(item.Id)).ToList();
         }
     }
 }

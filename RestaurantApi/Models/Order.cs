@@ -8,10 +8,20 @@
         public decimal TotalPrice { get; set; }
         public string Status { get; set; } = "Received";
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string PriceStrategy { get; set; } = "Unknown";
 
         public void AddItem(MenuItem item)
         {
             Items.Add(item);
         }
+    }
+
+    public record OrderDto
+    {
+        public int TableNumber { get; init; }
+
+        public List<string> ItemsId { get; init; } = new();
+
+        public string? PriceStrategy { get; init; } = null;
     }
 }

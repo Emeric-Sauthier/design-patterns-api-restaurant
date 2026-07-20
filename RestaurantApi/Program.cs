@@ -1,4 +1,5 @@
 using RestaurantApi;
+using RestaurantApi.Models;
 using RestaurantApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,9 +32,9 @@ app.MapPut("/api/orders/{id}/state", (string id) =>
     return Results.BadRequest("This endpoint is not yet implemented");
 });
 
-app.MapPost("/api/orders", () =>
+app.MapPost("/api/orders", (OrderDto orderDto) =>
 {
-    return Results.BadRequest("This endpoint is not yet implemented");
+    return Results.Ok(restaurant.CreateOrder(orderDto));
 });
 
 app.MapGet("/api/menu", () =>
