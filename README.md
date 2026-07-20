@@ -36,6 +36,7 @@ Contraintes principales :
 
 Pattern retenu :  
 **Factory** afin de centraliser la logique de création de plat.
+![Diagramme de classe - Pattern Factory](FactoryPattern.png)
 
 ### Besoin 2 - Calcul flexible du prix
 
