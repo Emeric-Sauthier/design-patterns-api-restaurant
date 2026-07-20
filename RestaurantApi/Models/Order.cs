@@ -29,6 +29,11 @@ namespace RestaurantApi.Models
             _state = state;
         }
 
+        public void NextState()
+        {
+            _state.NextState();
+        }
+
         public void AddItem(MenuItem item)
         {
             Items.Add(item);

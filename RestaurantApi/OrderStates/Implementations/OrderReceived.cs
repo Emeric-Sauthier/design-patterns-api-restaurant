@@ -14,24 +14,9 @@ namespace RestaurantApi.OrderStates.Implementations
             return "Received";
         }
 
-        public override void InPreparation()
+        public override void NextState()
         {
             _order.SetState(new OrderInPreparation(_order));
-        }
-
-        public override void Ready()
-        {
-            throw new InvalidOperationException("Cannot mark order as ready. It is in 'Received' state.");
-        }
-
-        public override void Served()
-        {
-            throw new InvalidOperationException("Cannot serve order. It is in 'Received' state.");
-        }
-
-        public override void Paid()
-        {
-            throw new InvalidOperationException("Cannot mark order as paid. It is in 'Received' state.");
         }
     }
 }

@@ -14,24 +14,9 @@ namespace RestaurantApi.OrderStates.Implementations
             return "Paid";
         }
 
-        public override void InPreparation()
+        public override void NextState()
         {
-            throw new InvalidOperationException("Cannot prepare order. It is in 'Paid' state.");
-        }
-
-        public override void Paid()
-        {
-            throw new InvalidOperationException("Cannot pay order. It is in 'Paid' state.");
-        }
-
-        public override void Ready()
-        {
-            throw new InvalidOperationException("Cannot mark order as ready. It is in 'Paid' state.");
-        }
-
-        public override void Served()
-        {
-            throw new InvalidOperationException("Cannot serve order. It is in 'Paid' state.");
+            throw new InvalidOperationException("Cannot change state. It is in 'Paid' state.");
         }
     }
 }

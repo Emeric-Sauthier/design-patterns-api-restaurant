@@ -14,24 +14,9 @@ namespace RestaurantApi.OrderStates.Implementations
             return "Served";
         }
 
-        public override void InPreparation()
-        {
-            throw new InvalidOperationException("Cannot prepare order. It is in Served state.");
-        }
-
-        public override void Paid()
+        public override void NextState()
         {
             _order.SetState(new OrderPaid(_order));
-        }
-
-        public override void Ready()
-        {
-            throw new InvalidOperationException("Cannot serve order. It is in Served state.");
-        }
-
-        public override void Served()
-        {
-            throw new InvalidOperationException("Cannot serve order. It is in Served state.");
         }
     }
 }

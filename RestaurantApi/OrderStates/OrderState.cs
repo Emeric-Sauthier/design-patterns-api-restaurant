@@ -11,10 +11,7 @@ namespace RestaurantApi.OrderStates
             _order = order;
         }
 
-        public abstract void InPreparation();
-        public abstract void Ready();
-        public abstract void Served();
-        public abstract void Paid();
+        public abstract void NextState();
 
         public abstract string GetStateName();
     }

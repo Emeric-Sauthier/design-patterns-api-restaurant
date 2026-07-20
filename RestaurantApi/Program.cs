@@ -29,7 +29,8 @@ app.MapGet("/api/orders/{id}", (string id) =>
 
 app.MapPut("/api/orders/{id}/state", (string id) =>
 {
-    return Results.BadRequest("This endpoint is not yet implemented");
+    var result = restaurant.OrderNextState(id);
+    return result is not null ? Results.Ok(result) : Results.NotFound();
 });
 
 app.MapPost("/api/orders", (OrderDto orderDto) =>

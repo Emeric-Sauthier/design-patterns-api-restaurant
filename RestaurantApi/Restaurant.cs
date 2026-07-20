@@ -57,6 +57,18 @@ namespace RestaurantApi
             return order;
         }
 
+        public Order OrderNextState(string orderId)
+        {
+            Order? order = _orderRepository.GetById(orderId);
+            if (order == null) {
+                throw new ArgumentException($"Order with ID {orderId} not found.");
+            }
+
+            order.NextState();
+
+            return order;
+        }
+
         private void InitializeMenu()
         {
             var entranceFactory = new EntranceFactory();

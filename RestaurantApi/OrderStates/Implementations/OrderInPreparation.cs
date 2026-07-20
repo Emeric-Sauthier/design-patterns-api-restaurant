@@ -14,24 +14,9 @@ namespace RestaurantApi.OrderStates.Implementations
             return "InPreparation";
         }
 
-        public override void InPreparation()
-        {
-            throw new InvalidOperationException("Cannot prepare order. It is in 'InPreparation' state.");)
-        }
-
-        public override void Paid()
-        {
-            throw new InvalidOperationException("Cannot pay order. It is in 'InPreparation' state.");)
-        }
-
-        public override void Ready()
+        public override void NextState()
         {
             _order.SetState(new OrderReady(_order));
-        }
-
-        public override void Served()
-        {
-            throw new InvalidOperationException("Cannot serve order. It is in 'InPreparation' state.");)
         }
     }
 }
