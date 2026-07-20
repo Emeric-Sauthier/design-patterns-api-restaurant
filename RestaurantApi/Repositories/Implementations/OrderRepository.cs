@@ -1,10 +1,11 @@
 ﻿using RestaurantApi.Models;
+using System.Collections.Concurrent;
 
-namespace RestaurantApi.Repositories;
+namespace RestaurantApi.Repositories.Implementations;
 
-public class OrderRepository
+public class OrderRepository : IRepository<Order>
 {
-    private readonly Dictionary<string, Order> _orders = new();
+    private readonly ConcurrentDictionary<string, Order> _orders = new();
 
     public void Add(Order order)
     {
@@ -16,7 +17,7 @@ public class OrderRepository
         return _orders.TryGetValue(id, out var order) ? order : null;
     }
 
-    public List<Order> GetAll()
+    public IEnumerable<Order> GetAll()
     {
         return _orders.Values.ToList();
     }

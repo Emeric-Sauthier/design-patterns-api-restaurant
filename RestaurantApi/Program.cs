@@ -1,7 +1,7 @@
 using RestaurantApi;
 using RestaurantApi.Models;
 using RestaurantApi.Observers.OrderObservers;
-using RestaurantApi.Repositories;
+using RestaurantApi.Repositories.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 

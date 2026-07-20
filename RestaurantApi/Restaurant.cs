@@ -3,7 +3,7 @@ using RestaurantApi.Models;
 using RestaurantApi.Observers;
 using RestaurantApi.PriceStrategies;
 using RestaurantApi.PriceStrategies.Implementations;
-using RestaurantApi.Repositories;
+using RestaurantApi.Repositories.Implementations;
 
 namespace RestaurantApi
 {
@@ -31,12 +31,12 @@ namespace RestaurantApi
             InitializeMenu();
         }
 
-        public List<MenuItem> GetMenu()
+        public IEnumerable<MenuItem> GetMenu()
         {
             return _menuItemRepository.GetAll();
         }
 
-        public List<Order> GetOrders()
+        public IEnumerable<Order> GetOrders()
         {
             return _orderRepository.GetAll();
         }
