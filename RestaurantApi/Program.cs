@@ -18,7 +18,7 @@ app.UseSwaggerUI();
 
 var restaurant = app.Services.GetRequiredService<Restaurant>();
 restaurant.Attach(new KitchenService());
-restaurant.Attach(new PayementService());
+restaurant.Attach(new PaymentService());
 restaurant.Attach(new WaiterService());
 
 app.MapGet("/", () => "Restaurant API is running. See /swagger for details.");
