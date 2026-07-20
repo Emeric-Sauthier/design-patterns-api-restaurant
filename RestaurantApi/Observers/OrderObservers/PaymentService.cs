@@ -2,7 +2,7 @@
 
 namespace RestaurantApi.Observers.OrderObservers
 {
-    public class PayementService : IRestaurantObserver<Order>
+    public class PaymentService : IRestaurantObserver<Order>
     {
         public void Update(Order data)
         {
